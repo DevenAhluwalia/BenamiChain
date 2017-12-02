@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RoundProgressModule } from 'angular-svg-round-progressbar';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,14 @@ export class AppComponent {
   			'nameTo' : 'Mulayam singh yadav'
   		  }];
   txnsText = '';
+  current = 5;
+  showRPB = false;
+  RBPInterval = null;
+  searchText = '';
+  options = [{'name' : 'Ghatkopar, Deven Walia, plot786'},
+             {'name' : 'Shalimar Bagh, Anil Walia, plot3110'},
+             {'name' : 'Punjabi Bagh, Kamaljit Walia, plot0210'},
+             {'name' : 'Bohra ganesh chawk, Mohanlal Sukhodia, plot111'}];
 
   ngOnInit() {
   	let x = [];
@@ -39,5 +48,21 @@ export class AppComponent {
   		gap += '&nbsp;'
   	}
   	this.txnsText = x.join(gap);
+  }
+
+  search(option=null) {
+  	this.current = 5;
+  	this.showRPB = true;
+
+  	this.RBPInterval = setInterval(()=>{
+  		this.current--;
+  		if(!this.current) {
+  			clearInterval(this.RBPInterval);
+  			this.showRPB = false;
+  		}
+  	}, 1000);
+  	if(option){
+  		this.searchText = option['name'];
+  	}
   }
 }

@@ -1,7 +1,47 @@
 <div class="txnContainer">
-	<marquee [innerHTML]="txnsText">
-	</marquee>
-	<!-- <div class="txnBox" *ngFor="let txn of txns">
-		{{txn['hash']}}
-	</div> -->
+	<div class="liveViewContainer">
+		<span class="livetxnsLabel label">
+			Live transactions
+		</span>
+		<div class="marqueeContainer">
+			<marquee>
+				<span class="marqueeText" [innerHTML]="txnsText">
+				</span>
+			</marquee>
+		</div>
+	</div>
+	<div class="searchTextContainer">
+		<span class="searchTextLabel label">
+			Search property
+		</span>
+		<input pointer placeholder="eg. village1, Name1, Plot1" type="text" [(ngModel)]="searchText" class="searchTextbox"
+		(click)="search()">
+	</div>
+	<div class="chooseOptionsContainer">
+		<div *ngFor="let option of options">
+			<div class="chooseOptions" (click)="search(option)" pointer>
+				<span class="chooseOptionsText">
+					{{option['name']}}
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="roundProgressBarFlex">
+		<div class="left">
+		</div>
+		<div class="middle" *ngIf="showRPB">
+			<div class="currentContainer">
+				<div class="currentText">
+					{{current}}
+				</div>
+			</div>
+			<div class="progressContainer">
+			    <round-progress [current]="current" [max]="5" [responsive]="true"
+			    [duration]="1" [color]="'#fff'" [background]="'rgba(255,255,255,0.3)'" [animation]="'linearEase'">
+			    </round-progress>
+			</div>
+		</div>
+		<div class="right">
+		</div>
+	</div>
 </div>
