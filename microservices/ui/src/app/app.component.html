@@ -1,3 +1,7 @@
-<h1>
-  {{title}}
-</h1>
+<div class="txnContainer">
+	<marquee [innerHTML]="txnsText">
+	</marquee>
+	<!-- <div class="txnBox" *ngFor="let txn of txns">
+		{{txn['hash']}}
+	</div> -->
+</div>

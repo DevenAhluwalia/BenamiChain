@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,38 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'Hello from Angular deployed on Hasura!';
+  txns = [{
+  			'hash' : '02df2f420650648099b08f662abafa5244e971745ba12dc17fd4cf6da1c99dd9e4',
+  			'nameFrom' : 'Deven Walia',
+  			'action': 'sold',
+  			'nameTo' : 'Mukesh Ambani'
+  		  },
+  		  {
+  		  	'hash' : 'b9bea2aaa1d5a5e035d663dae92e2bfa0510343cec23a2e0d2114383653c6cc8',
+  		  	'nameFrom' : 'Tata Birla',
+  			'action': 'bought',
+  			'nameTo' : 'Tesla'
+  		  },
+  		  {
+  		  	'hash' : 'b9bea2aaa1d5a5e035d663dae92e2bfa0510343cec23a2e0d2114383653c6cc8',
+  		  	'nameFrom' : 'Modiji',
+  			'action': 'bought',
+  			'nameTo' : 'Mulayam singh yadav'
+  		  }];
+  txnsText = '';
+
+  ngOnInit() {
+  	let x = [];
+  	for(let idx in this.txns) {
+  		x[idx] = this.txns[idx]['nameFrom'] +
+  					(this.txns[idx]['action'] == 'sold' ? ' sold to ' : ' bought from ') +
+  						this.txns[idx]['nameTo'];
+  	}
+  	let gap = '';
+  	let i = 0;
+  	while(i++ < 25){
+  		gap += '&nbsp;'
+  	}
+  	this.txnsText = x.join(gap);
+  }
 }
