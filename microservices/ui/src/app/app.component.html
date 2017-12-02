@@ -15,33 +15,49 @@
 			Search property
 		</span>
 		<input pointer placeholder="eg. village1, Name1, Plot1" type="text" [(ngModel)]="searchText" class="searchTextbox"
-		(click)="search()">
+		(keyup.enter)="search()">
 	</div>
 	<div class="chooseOptionsContainer">
-		<div *ngFor="let option of options">
-			<div class="chooseOptions" (click)="search(option)" pointer>
+		<div *ngFor="let option of options; let i = index;">
+			<div class="chooseOptions ovalBox" (click)="search(i+1)" pointer>
 				<span class="chooseOptionsText">
-					{{option['name']}}
+					{{optionsMeta['id'+(i+1)]['name']}}
 				</span>
 			</div>
 		</div>
 	</div>
-	<div class="roundProgressBarFlex">
+	<div class="roundProgressBarFlex" [style.display]="showRPB ? '' : 'none'">
 		<div class="left">
 		</div>
-		<div class="middle" *ngIf="showRPB">
+		<div class="middle">
 			<div class="currentContainer">
 				<div class="currentText">
 					{{current}}
 				</div>
 			</div>
 			<div class="progressContainer">
-			    <round-progress [current]="current" [max]="5" [responsive]="true"
-			    [duration]="1" [color]="'#fff'" [background]="'rgba(255,255,255,0.3)'" [animation]="'linearEase'">
+			    <round-progress [current]="current" [max]="3" [responsive]="true"
+			    [duration]="1000" [color]="'#fff'" [background]="'rgba(255,255,255,0.3)'" [animation]="'linearEase'">
 			    </round-progress>
 			</div>
 		</div>
 		<div class="right">
 		</div>
+	</div>
+	<div class="trailContainer" [style.display]="showTrail ? '' : 'none'">
+		<div *ngFor="let trail of trails; let i = index;" class="trailBoxContainer">
+			<div class="trailBox ovalBox" pointer>
+				<span class="trailText label">
+					{{trail['name']}}
+				</span>
+			</div>
+			<div class="arrowContainer" *ngIf="i != trails.length-1">
+			</div>
+		</div>
+	</div>
+	<div class="errContainer" [style.background-color]="isErr ? 'red' : 'green'">
+		<span class="errTextContainer" [style.display]="showErr ? '' : 'none'">
+			{{errText}}
+		</span>
 	</div>
 </div>
